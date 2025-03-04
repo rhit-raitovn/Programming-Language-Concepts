@@ -1,0 +1,28 @@
+#lang racket
+
+(provide make-slist-leaf-iterator subst-leftmost)
+
+(define make-slist-leaf-iterator
+  (lambda (a)
+    (nyi)))
+
+(define subst-leftmost
+  (lambda (a b c d)
+    (nyi)))
+
+;;--------  Used by the testing mechanism   ------------------
+
+(define-syntax nyi
+  (syntax-rules ()
+    ([_]
+     [error "nyi"])))
+
+(define snlist-recur
+  (lambda (flist fatom init)
+    (letrec ([helper (lambda (l)
+		       (cond [(null? l) init]
+			     [(or (pair? (car l))
+                                  (null? (car l))) (flist (helper (car l))
+						     (helper (cdr l)))]
+			     [else (fatom (car l) (helper (cdr l)))]))])
+      helper)))
